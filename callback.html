@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex"><title>shorts-factory login</title>
+<style>body{font:16px/1.6 system-ui,sans-serif;max-width:680px;margin:40px auto;padding:0 16px;color:#222;background:#fff}
+code{display:block;word-break:break-all;background:#f3f3f3;padding:12px;border-radius:6px}button{font:inherit;padding:8px 16px;margin-top:8px}</style></head>
+<body>
+<h1>shorts-factory login</h1>
+<p id="msg">Waiting for a login code...</p>
+<code id="code"></code>
+<button id="copy" hidden>Copy code</button>
+<script>
+// Shows the one-time code TikTok sends back so the owner can paste it into shorts-factory on their own computer.
+// Nothing is stored or sent anywhere by this page.
+const q = new URLSearchParams(location.search);
+const code = q.get("code"), err = q.get("error_description") || q.get("error");
+const msg = document.getElementById("msg"), box = document.getElementById("code"), btn = document.getElementById("copy");
+if (code) { msg.textContent = "Login worked. Copy this code into tiktok_code.txt on your Mac (it expires in a few minutes):"; box.textContent = code; btn.hidden = false; }
+else if (err) { msg.textContent = "Login failed: " + err; }
+btn.onclick = () => navigator.clipboard.writeText(code).then(() => btn.textContent = "Copied!");
+</script>
+</body></html>
